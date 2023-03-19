@@ -36,6 +36,7 @@ dependencies:
   mobx: ^2.0.1
   provider: ^6.0.4
   json_annotation: ^4.8.0
+  dartz: ^0.10.1
 
   # network
   # dio: ^4.0.0-prev3

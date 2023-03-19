@@ -13,13 +13,13 @@ mixin _$SubjectContentViewModel on _SubjectContentViewModel, Store {
       Atom(name: '_SubjectContentViewModel.listContent', context: context);
 
   @override
-  List<SubjectContentTypeEnum> get listContent {
+  List<SubContentModel> get listContent {
     _$listContentAtom.reportRead();
     return super.listContent;
   }
 
   @override
-  set listContent(List<SubjectContentTypeEnum> value) {
+  set listContent(List<SubContentModel> value) {
     _$listContentAtom.reportWrite(value, super.listContent, () {
       super.listContent = value;
     });

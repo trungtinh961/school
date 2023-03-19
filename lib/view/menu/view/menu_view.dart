@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
+import 'package:smart_school/view/menu/service/menu_service.dart';
 
 import '../../../core/base/view/base_widget.dart';
 import '../viewmodel/menu_view_model.dart';
@@ -17,17 +18,18 @@ class _MenuViewState extends State<MenuView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<MenuViewModel>(
-      viewModel: MenuViewModel(),
+      viewModel: MenuViewModel(MenuServices()),
       onModelReady: (model) {
         model.setContext(context);
         model.init();
       },
-      onPageBuilder: buildScaffoldBody,
+      onPageBuilder: _buildScaffoldBody,
     );
   }
 
-  Widget buildScaffoldBody(BuildContext context, MenuViewModel viewModel) {
+  Widget _buildScaffoldBody(BuildContext context, MenuViewModel viewModel) {
     return Scaffold(
+      appBar: _buildAppBar(context),
       backgroundColor: context.colorScheme.background,
       body: SafeArea(
         child: Stack(
@@ -38,6 +40,17 @@ class _MenuViewState extends State<MenuView> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      leading: const SizedBox.shrink(),
+      backgroundColor: Colors.transparent,
+      title: Text(
+        "THPT Cái Bè",
+        style: Theme.of(context).textTheme.headlineSmall,
       ),
     );
   }

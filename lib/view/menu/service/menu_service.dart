@@ -2,23 +2,18 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../model/subject_model.dart';
+
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-final CollectionReference _mainCollection = _firestore.collection('notes');
+final CollectionReference _mainCollection = _firestore.collection('cb001');
 
-class Database {
-  static String? userUid;
-
-  static Future<void> addItem({
-    required String title,
-    required String description,
+class MenuServices {
+  Future<void> addItem({
+    required String? subjectId,
+    required SubjectModel model,
   }) async {
-    DocumentReference documentReferencer =
-        _mainCollection.doc(userUid).collection('items').doc();
-
-    Map<String, dynamic> data = <String, dynamic>{
-      "title": title,
-      "description": description,
-    };
+    DocumentReference documentReferencer = _mainCollection.doc(subjectId);
+    Map<String, dynamic> data = model.toFirestore();
 
     await documentReferencer
         .set(data)
@@ -26,18 +21,12 @@ class Database {
         .catchError((e) => log(e));
   }
 
-  static Future<void> updateItem({
-    required String title,
-    required String description,
-    required String docId,
+  Future<void> updateItem({
+    required String subjectId,
+    required SubjectModel model,
   }) async {
-    DocumentReference documentReferencer =
-        _mainCollection.doc(userUid).collection('items').doc(docId);
-
-    Map<String, dynamic> data = <String, dynamic>{
-      "title": title,
-      "description": description,
-    };
+    DocumentReference documentReferencer = _mainCollection.doc(subjectId);
+    Map<String, dynamic> data = model.toFirestore();
 
     await documentReferencer
         .update(data)
@@ -45,18 +34,20 @@ class Database {
         .catchError((e) => log(e));
   }
 
-  static Stream<QuerySnapshot> readItems() {
-    CollectionReference notesItemCollection =
-        _mainCollection.doc(userUid).collection('items');
-
-    return notesItemCollection.snapshots();
+  Future<List<SubjectModel>> readItems() async {
+    final querySnapshot = await _mainCollection.orderBy('type', descending: true).get();
+    List<SubjectModel> datas = querySnapshot.docs.map((e) {
+      final data = e.data() as Map<String, dynamic>;
+      return SubjectModel.fromJson(data);
+    }).toList();
+    return datas;
   }
 
-  static Future<void> deleteItem({
-    required String docId,
+  Future<void> deleteItem({
+    required String subjectId,
   }) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc(userUid).collection('items').doc(docId);
+        _mainCollection.doc(subjectId).collection('items').doc(subjectId);
 
     await documentReferencer
         .delete()

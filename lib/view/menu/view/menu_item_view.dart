@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
-import '../model/menu_model.dart';
+import '../model/subject_model.dart';
 
 class MenuItemView extends StatelessWidget {
   const MenuItemView({
@@ -10,8 +10,8 @@ class MenuItemView extends StatelessWidget {
     this.onSelected,
   }) : super(key: key);
 
-  final MenuModel? item;
-  final Function(MenuModel?)? onSelected;
+  final SubjectModel? item;
+  final Function(SubjectModel?)? onSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +23,14 @@ class MenuItemView extends StatelessWidget {
         color: Colors.teal[100],
         child: Stack(
           children: [
-            Image.asset(item!.image),
+            Image.asset(item?.type?.getImage ?? ''),
             Positioned(
               left: 0,
               right: 0,
               bottom: 0,
               child: Center(
                 child: Text(
-                  item!.name,
+                  item?.name ?? '',
                   style: context.textTheme.labelMedium?.copyWith(
                     fontWeight: FontWeight.w700,
                     color: context.colorScheme.primaryContainer,

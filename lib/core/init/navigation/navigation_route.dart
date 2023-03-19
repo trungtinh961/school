@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:architecture_widgets/src/card/not_found_navigation_widget.dart';
+import 'package:smart_school/view/menu/model/subject_model.dart';
 import '../../../product/exception/navigate_model_not_found.dart';
-import '../../../view/menu/model/menu_model.dart';
 import '../../../view/menu/view/menu_view.dart';
 import '../../../view/splash/view/splash_view.dart';
 import '../../../view/subject_detail/view/subject_content_view.dart';
@@ -25,12 +25,12 @@ class NavigationRoute {
         return normalNavigate(const MenuView(), NavigationConstants.MENU_VIEW);
 
       case NavigationConstants.SUBJECT_CONTENT_VIEW:
-        if (args.arguments is MenuModel) {
+        if (args.arguments is SubjectModel) {
           return normalNavigate(
-              SubjectContentView(menuItem: args.arguments as MenuModel),
+              SubjectContentView(menuItem: args.arguments as SubjectModel),
               NavigationConstants.SUBJECT_CONTENT_VIEW);
         }
-        throw NavigateException<MenuModel>(args.arguments);
+        throw NavigateException<SubjectModel>(args.arguments);
         
       case NavigationConstants.WEB_VIEW:
         if (args.arguments is WebViewModel) {
@@ -38,7 +38,7 @@ class NavigationRoute {
               DynamicWebView(model: args.arguments as WebViewModel),
               NavigationConstants.WEB_VIEW);
         }
-        throw NavigateException<MenuModel>(args.arguments);
+        throw NavigateException<SubjectModel>(args.arguments);
 
       default:
         return MaterialPageRoute(

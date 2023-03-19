@@ -1,71 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:smart_school/view/menu/model/subject_model.dart';
 
 import '../../../../core/base/model/base_view_model.dart';
 import '../../../../core/constants/navigation/navigation_constants.dart';
-import '../../../core/constants/image/image_constant.dart';
 import '../../webview/webview_model.dart';
-import '../model/menu_model.dart';
+import '../service/menu_service.dart';
 
 part 'menu_view_model.g.dart'; // This is the generated file.
 
+// ignore: library_private_types_in_public_api
 class MenuViewModel = _MenuViewModel with _$MenuViewModel;
 
 abstract class _MenuViewModel with Store, BaseViewModel {
+  _MenuViewModel(this._menuService);
+
+  final MenuServices _menuService;
+
   @observable
-  List<MenuModel> listMenu = [];
+  List<SubjectModel> listMenu = [];
 
   @override
   void setContext(BuildContext context) => viewModelContext = context;
 
   @override
   void init() {
-    getListMenu();
+    _getListMenu();
   }
 
-  void getListMenu() {
-    listMenu = [
-      MenuModel(
-        name: "Văn học",
-        image: ImageConstants.instance.booksIcon,
-        subjectType: SubjectType.literature,
-      ),
-      MenuModel(
-        name: "Toán",
-        image: ImageConstants.instance.booksIcon,
-        subjectType: SubjectType.mathematics,
-      ),
-      MenuModel(
-        name: "Hoá học",
-        image: ImageConstants.instance.booksIcon,
-        subjectType: SubjectType.chemistry,
-      ),
-      MenuModel(
-        name: "Vật lí",
-        image: ImageConstants.instance.booksIcon,
-        subjectType: SubjectType.physics,
-      ),
-      MenuModel(
-        name: "Anh văn",
-        image: ImageConstants.instance.booksIcon,
-        subjectType: SubjectType.english,
-      ),
-      MenuModel(
-        name: "Góp ý xây dựng",
-        image: ImageConstants.instance.feedbackIcon,
-        type: MenuType.feedback,
-        feedbackType: FeedbackType.suggestions,
-      ),
-      MenuModel(
-        name: "Tư vấn tâm lí",
-        image: ImageConstants.instance.feedbackIcon,
-        type: MenuType.feedback,
-        feedbackType: FeedbackType.psychologicalCounseling,
-      ),
-    ];
+  Future<void> _getListMenu() async {
+    final response = await _menuService.readItems();
+    listMenu = response;
   }
 
-  void onSelectMenu(MenuModel? item) {
+  void onSelectMenu(SubjectModel? item) {
     switch (item?.type) {
       case MenuType.subject:
         navigation.navigateToPage(

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-
-import '../model/subject_content_type.dart';
+import 'package:smart_school/view/menu/model/subject_model.dart';
 
 class SubjectContentItemView extends StatelessWidget {
   const SubjectContentItemView({
     Key? key,
-    this.type,
+    this.subContentModel,
     this.onPressed,
   }) : super(key: key);
 
-  final SubjectContentTypeEnum? type;
+  final SubContentModel? subContentModel;
   final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    if (type == null) {
+    if (subContentModel == null) {
       return const SizedBox.shrink();
     }
     return Column(
@@ -28,7 +27,7 @@ class SubjectContentItemView extends StatelessWidget {
             ),
           ),
           child: ListTile(
-            title: Text(type!.description),
+            title: Text(subContentModel?.name ?? ''),
             onTap: onPressed,
           ),
         ),

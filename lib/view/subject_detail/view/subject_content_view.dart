@@ -4,7 +4,7 @@ import 'package:kartal/kartal.dart';
 import 'package:smart_school/view/subject_detail/view/subject_content_item_view.dart';
 
 import '../../../core/base/view/base_widget.dart';
-import '../../menu/model/menu_model.dart';
+import '../../menu/model/subject_model.dart';
 import '../viewmodel/subject_content_view_model.dart';
 
 class SubjectContentView extends StatelessWidget {
@@ -13,12 +13,12 @@ class SubjectContentView extends StatelessWidget {
     required this.menuItem,
   }) : super(key: key);
 
-  final MenuModel? menuItem;
+  final SubjectModel? menuItem;
 
   @override
   Widget build(BuildContext context) {
     return BaseView<SubjectContentViewModel>(
-      viewModel: SubjectContentViewModel(),
+      viewModel: SubjectContentViewModel(model: menuItem),
       onModelReady: (model) {
         model.setContext(context);
         model.init();
@@ -49,11 +49,12 @@ class SubjectContentView extends StatelessWidget {
   }
 
   Widget _buildListViewContent(SubjectContentViewModel viewModel) {
+    final listContent = viewModel.model?.content ?? [];
     return ListView.builder(
-      itemCount: viewModel.listContent.length,
+      itemCount: listContent.length,
       itemBuilder: (context, index) {
         return SubjectContentItemView(
-          type: viewModel.listContent[index],
+          subContentModel: listContent[index],
         );
       },
     );

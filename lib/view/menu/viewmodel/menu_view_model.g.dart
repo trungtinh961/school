@@ -13,13 +13,13 @@ mixin _$MenuViewModel on _MenuViewModel, Store {
       Atom(name: '_MenuViewModel.listMenu', context: context);
 
   @override
-  List<MenuModel> get listMenu {
+  List<SubjectModel> get listMenu {
     _$listMenuAtom.reportRead();
     return super.listMenu;
   }
 
   @override
-  set listMenu(List<MenuModel> value) {
+  set listMenu(List<SubjectModel> value) {
     _$listMenuAtom.reportWrite(value, super.listMenu, () {
       super.listMenu = value;
     });
