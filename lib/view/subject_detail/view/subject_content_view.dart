@@ -55,6 +55,7 @@ class SubjectContentView extends StatelessWidget {
       itemBuilder: (context, index) {
         return SubjectContentItemView(
           subContentModel: listContent[index],
+          onPressed: viewModel.onSelectMenu,
         );
       },
     );

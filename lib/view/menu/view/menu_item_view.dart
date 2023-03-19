@@ -20,7 +20,10 @@ class MenuItemView extends StatelessWidget {
       onTap: () => onSelected?.call(item),
       child: Container(
         padding: const EdgeInsets.all(8),
-        color: Colors.teal[100],
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          color: Colors.teal[100],
+        ),
         child: Stack(
           children: [
             Image.asset(item?.type?.getImage ?? ''),
