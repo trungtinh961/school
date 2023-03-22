@@ -36,7 +36,7 @@ abstract class _SubjectContentViewModel with Store, BaseViewModel {
         path: NavigationConstants.WEB_VIEW,
         data: WebViewModel(
           item?.name ?? '',
-          url: 'https://forms.gle/QMK67Mv4kCDja7LV7',
+          url: item?.url,
         ));
   }
 }
