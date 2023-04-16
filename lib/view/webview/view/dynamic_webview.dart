@@ -44,16 +44,25 @@ class _DynamicWebViewState extends State<DynamicWebView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(widget.model.url ?? ''));
+      ..loadRequest(
+        Uri.parse(widget.model.url.isNullOrEmpty
+            ? 'https://'
+            : widget.model.url ?? ''),
+      );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.model.title, style: context.textTheme.headlineSmall),
+        title: Text(
+          widget.model.title,
+          style: context.textTheme.headlineSmall,
+        ),
       ),
-      body: WebViewWidget(controller: _controller),
+      body: (widget.model.url ?? '').isEmpty
+          ? const SizedBox.shrink()
+          : WebViewWidget(controller: _controller),
     );
   }
 }

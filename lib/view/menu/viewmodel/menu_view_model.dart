@@ -18,7 +18,8 @@ abstract class _MenuViewModel with Store, BaseViewModel {
   final MenuServices _menuService;
 
   @observable
-  List<SubjectModel> listMenu = [];
+  List<SubjectModel> listSubject = [];
+  List<SubjectModel> listFeedback = [];
 
   @override
   void setContext(BuildContext context) => viewModelContext = context;
@@ -30,7 +31,8 @@ abstract class _MenuViewModel with Store, BaseViewModel {
 
   Future<void> _getListMenu() async {
     final response = await _menuService.readItems();
-    listMenu = response;
+    listSubject = response.where((e) => e.type == MenuType.subject).toList();
+    listFeedback = response.where((e) => e.type == MenuType.feedback).toList();
   }
 
   void onSelectMenu(SubjectModel? item) {

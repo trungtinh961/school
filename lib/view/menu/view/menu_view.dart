@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
+import 'package:smart_school/view/menu/model/subject_model.dart';
 import 'package:smart_school/view/menu/service/menu_service.dart';
 
 import '../../../core/base/view/base_widget.dart';
@@ -28,16 +29,14 @@ class _MenuViewState extends State<MenuView> {
   }
 
   Widget _buildScaffoldBody(BuildContext context, MenuViewModel viewModel) {
-    return Scaffold(
-      appBar: _buildAppBar(context),
-      backgroundColor: context.colorScheme.background,
-      body: SafeArea(
-        child: Stack(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: _buildAppBar(context),
+        body: TabBarView(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: _buildMenuListView(viewModel),
-            ),
+            _buildMenuListView(viewModel, MenuType.subject),
+            _buildMenuListView(viewModel, MenuType.feedback),
           ],
         ),
       ),
@@ -49,27 +48,40 @@ class _MenuViewState extends State<MenuView> {
       leading: const SizedBox.shrink(),
       backgroundColor: Colors.transparent,
       title: Text(
-        "THPT Cái Bè",
+        "THPT ..........",
         style: Theme.of(context).textTheme.headlineSmall,
+      ),
+      bottom: const TabBar(
+        tabs: [
+          Tab(text: 'Môn học'),
+          Tab(text: 'Góp ý'),
+        ],
       ),
     );
   }
 
-  Widget _buildMenuListView(MenuViewModel viewModel) {
+  Widget _buildMenuListView(MenuViewModel viewModel, MenuType type) {
     return Observer(
-      builder: (_) => GridView.builder(
-        itemCount: viewModel.listMenu.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: GridView.builder(
+          itemCount: type == MenuType.subject
+              ? viewModel.listSubject.length
+              : viewModel.listFeedback.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemBuilder: (BuildContext context, int index) {
+            return MenuItemView(
+              item: type == MenuType.subject
+                  ? viewModel.listSubject[index]
+                  : viewModel.listFeedback[index],
+              onSelected: viewModel.onSelectMenu,
+            );
+          },
         ),
-        itemBuilder: (BuildContext context, int index) {
-          return MenuItemView(
-            item: viewModel.listMenu[index],
-            onSelected: viewModel.onSelectMenu,
-          );
-        },
       ),
     );
   }
