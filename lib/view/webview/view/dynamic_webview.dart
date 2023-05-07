@@ -57,7 +57,7 @@ class _DynamicWebViewState extends State<DynamicWebView> {
       appBar: AppBar(
         title: Text(
           widget.model.title,
-          style: context.textTheme.headlineSmall,
+          style: context.textTheme.headlineSmall?.copyWith(color: Colors.white),
         ),
       ),
       body: (widget.model.url ?? '').isEmpty

@@ -27,7 +27,6 @@ class SubjectContentView extends StatelessWidget {
           (BuildContext context, SubjectContentViewModel viewModel) =>
               Container(
         color: context.colorScheme.background,
-        padding: context.paddingLow,
         child: Scaffold(
           appBar: buildAppBar(context),
           body: Observer(
@@ -40,24 +39,32 @@ class SubjectContentView extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
       title: Text(
         menuItem?.name ?? "",
-        style: Theme.of(context).textTheme.headlineSmall,
+        style: Theme.of(context)
+            .textTheme
+            .headlineSmall
+            ?.copyWith(color: Colors.white),
       ),
     );
   }
 
   Widget _buildListViewContent(SubjectContentViewModel viewModel) {
     final listContent = viewModel.model?.content ?? [];
-    return ListView.builder(
-      itemCount: listContent.length,
-      itemBuilder: (context, index) {
-        return SubjectContentItemView(
-          subContentModel: listContent[index],
-          onPressed: viewModel.onSelectMenu,
-        );
-      },
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16.0,
+        vertical: 20.0,
+      ),
+      child: ListView.builder(
+        itemCount: listContent.length,
+        itemBuilder: (context, index) {
+          return SubjectContentItemView(
+            subContentModel: listContent[index],
+            onPressed: viewModel.onSelectMenu,
+          );
+        },
+      ),
     );
   }
 }

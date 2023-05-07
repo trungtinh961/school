@@ -36,7 +36,7 @@ class MenuItemView extends StatelessWidget {
                   item?.name ?? '',
                   style: context.textTheme.labelMedium?.copyWith(
                     fontWeight: FontWeight.w700,
-                    color: context.colorScheme.primaryContainer,
+                    color: Colors.black,
                   ),
                   textAlign: TextAlign.center,
                 ),

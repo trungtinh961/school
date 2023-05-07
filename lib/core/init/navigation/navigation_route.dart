@@ -27,7 +27,12 @@ class NavigationRoute {
         return normalNavigate(const MenuView(), NavigationConstants.MENU_VIEW);
 
       case NavigationConstants.EDIT_URL_VIEW:
-        return normalNavigate(const EditUrlView(), NavigationConstants.EDIT_URL_VIEW);
+        if (args.arguments is SubjectModel) {
+          return normalNavigate(
+              EditUrlView(menuItem: args.arguments as SubjectModel),
+              NavigationConstants.EDIT_URL_VIEW);
+        }
+        throw NavigateException<SubjectModel>(args.arguments);
 
       case NavigationConstants.SUBJECT_CONTENT_VIEW:
         if (args.arguments is SubjectModel) {

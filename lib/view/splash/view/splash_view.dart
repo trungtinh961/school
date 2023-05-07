@@ -25,7 +25,7 @@ class SplashView extends StatelessWidget {
 
   Widget buildScaffoldBody(BuildContext context, SplashViewModel viewModel) {
     return Scaffold(
-      backgroundColor: context.colorScheme.onSurface,
+      backgroundColor: Colors.purple,
       body: SafeArea(
         child: Stack(
           children: [

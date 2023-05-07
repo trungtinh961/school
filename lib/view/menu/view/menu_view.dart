@@ -46,12 +46,12 @@ class _MenuViewState extends State<MenuView> {
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       leading: const SizedBox.shrink(),
-      backgroundColor: Colors.transparent,
       title: Text(
         "THPT ..........",
-        style: Theme.of(context).textTheme.headlineSmall,
+        style: context.textTheme.headlineSmall?.copyWith(color: Colors.white),
       ),
       bottom: const TabBar(
+        indicatorColor: Colors.white,
         tabs: [
           Tab(text: 'Môn học'),
           Tab(text: 'Góp ý'),

@@ -36,6 +36,7 @@ class MenuServices {
     final querySnapshot = await _mainCollection.orderBy('type', descending: true).get();
     List<SubjectModel> datas = querySnapshot.docs.map((e) {
       final data = e.data() as Map<String, dynamic>;
+      data['id'] = e.id;
       return SubjectModel.fromJson(data);
     }).toList();
     return datas;

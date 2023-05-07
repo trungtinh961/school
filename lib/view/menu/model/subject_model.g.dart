@@ -7,6 +7,7 @@ part of 'subject_model.dart';
 // **************************************************************************
 
 SubjectModel _$SubjectModelFromJson(Map<String, dynamic> json) => SubjectModel(
+      id: json['id'] as String?,
       name: json['name'] as String?,
       url: json['url'] as String?,
       type: $enumDecodeNullable(_$MenuTypeEnumMap, json['type']),
@@ -17,6 +18,7 @@ SubjectModel _$SubjectModelFromJson(Map<String, dynamic> json) => SubjectModel(
 
 Map<String, dynamic> _$SubjectModelToJson(SubjectModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'url': instance.url,
       'type': _$MenuTypeEnumMap[instance.type],

@@ -40,6 +40,8 @@ abstract class _MenuViewModel with Store, BaseViewModel {
       case MenuType.subject:
         navigation.navigateToPage(
             path: NavigationConstants.SUBJECT_CONTENT_VIEW, data: item);
+        // navigation.navigateToPage(
+        // path: NavigationConstants.EDIT_URL_VIEW, data: item);
         break;
       case MenuType.feedback:
         navigation.navigateToPage(
