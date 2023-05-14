@@ -5,7 +5,6 @@ import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constants/navigation/navigation_constants.dart';
 import '../../menu/model/subject_model.dart';
 import '../../webview/webview_model.dart';
-import '../model/subject_content_type.dart';
 
 part 'subject_content_view_model.g.dart'; // This is the generated file.
 

@@ -9,7 +9,6 @@ import 'core/init/lang/language_manager.dart';
 import 'core/init/navigation/navigation_route.dart';
 import 'core/init/navigation/navigation_service.dart';
 import 'core/init/notifier/provider_list.dart';
-import 'core/init/notifier/theme_notifer.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {

@@ -2,9 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
-
+import 'package:architecture_widgets/src/button/title_text_button.dart';
 import '../../../core/base/view/base_widget.dart';
-import '../../../core/constants/image/image_constant.dart';
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../viewmodel/splash_view_model.dart';
 
@@ -30,6 +29,7 @@ class SplashView extends StatelessWidget {
         child: Stack(
           children: [
             buildCenterTextWelcome(context, viewModel),
+            buildAnimatedAlignIcon(viewModel, context),
           ],
         ),
       ),
@@ -45,7 +45,7 @@ class SplashView extends StatelessWidget {
         builder: (_) {
           return AnimatedOpacity(
             duration: context.durationNormal,
-            opacity: viewModel.isFirstInit ? 0 : 1,
+            opacity: 1,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -57,7 +57,6 @@ class SplashView extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                // const CircularProgressIndicator.adaptive()
               ],
             ),
           );
@@ -72,11 +71,28 @@ class SplashView extends StatelessWidget {
   ) {
     return Observer(
       builder: (_) {
-        return AnimatedAlign(
-          alignment:
-              viewModel.isFirstInit ? Alignment.center : Alignment.bottomCenter,
-          duration: context.durationLow,
-          child: Image.asset(ImageConstants.instance.projeIcon),
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 32),
+          child: AnimatedAlign(
+            alignment: Alignment.bottomCenter,
+            duration: context.durationLow,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TitleTextButton(
+                  onPressed: viewModel.onClickTeacher,
+                  text: "Giáo viên",
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                TitleTextButton(
+                  onPressed: viewModel.onClickStudent,
+                  text: "Học sinh",
+                ),
+              ],
+            ),
+          ),
         );
       },
     );

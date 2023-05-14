@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/base/model/base_view_model.dart';
+import '../../../core/constants/enums/locale_keys_enum.dart';
 import '../../../core/constants/navigation/navigation_constants.dart';
 import '../service/splash_service.dart';
 import 'device_and_cahe.dart';
@@ -28,11 +28,6 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controlAppState();
     });
-
-    // Dummy for moduler page
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      navigation.navigateToPageClear(path: NavigationConstants.MENU_VIEW);
-    });
   }
 
   Future<void> controlAppState() async {
@@ -54,5 +49,19 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
   @action
   void _changeFirstInit() {
     isFirstInit = !isFirstInit;
+  }
+
+  void onClickTeacher() {
+    localeManager.setStringValue(PreferencesKeys.USER_ROLE, 'teacher');
+    _goToMenu();
+  }
+
+  void onClickStudent() {
+    localeManager.setStringValue(PreferencesKeys.USER_ROLE, 'student');
+    _goToMenu();
+  }
+
+  void _goToMenu() {
+    navigation.navigateToPageClear(path: NavigationConstants.MENU_VIEW);
   }
 }

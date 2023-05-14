@@ -22,17 +22,20 @@ abstract class _EditUrlViewModel with Store, BaseViewModel {
   @override
   void init() {}
 
-  void updateUrl(String url) {
+  Future<void> updateUrl(String url) async {
     if (model == null) return;
     model!.url = url;
-    _editService.updateUrl(model: model!);
+    await _editService.updateUrl(model: model!);
+    navigation.pop();
   }
 
+  // check if the url is valid
   bool isValidURL(String url) {
     RegExp urlRegex = RegExp(
-        r"^((http|https):\/\/)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$",
-        caseSensitive: false,
-        multiLine: false);
-    return urlRegex.hasMatch(url);
+      r"^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$",
+      multiLine: true,
+    );
+    bool result = urlRegex.hasMatch(url);
+    return result;
   }
 }

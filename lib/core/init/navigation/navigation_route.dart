@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:architecture_widgets/src/card/not_found_navigation_widget.dart';
-import 'package:smart_school/view/edit_url/service/edit_url_service.dart';
 import 'package:smart_school/view/edit_url/views/edit_url_view.dart';
 import 'package:smart_school/view/menu/model/subject_model.dart';
 import '../../../product/exception/navigate_model_not_found.dart';
