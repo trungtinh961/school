@@ -5,6 +5,7 @@ import 'package:architecture_widgets/src/card/not_found_navigation_widget.dart';
 import 'package:smart_school/view/edit_url/views/edit_url_view.dart';
 import 'package:smart_school/view/menu/model/subject_model.dart';
 import '../../../product/exception/navigate_model_not_found.dart';
+import '../../../view/create_school/view/create_school_view.dart';
 import '../../../view/menu/view/menu_view.dart';
 import '../../../view/splash/view/splash_view.dart';
 import '../../../view/subject_detail/view/subject_content_view.dart';
@@ -24,6 +25,9 @@ class NavigationRoute {
 
       case NavigationConstants.MENU_VIEW:
         return normalNavigate(const MenuView(), NavigationConstants.MENU_VIEW);
+      
+      case NavigationConstants.CREATE_SCHOOL:
+        return normalNavigate(const CreateSchoolView(), NavigationConstants.CREATE_SCHOOL);
 
       case NavigationConstants.EDIT_URL_VIEW:
         if (args.arguments is SubjectModel) {

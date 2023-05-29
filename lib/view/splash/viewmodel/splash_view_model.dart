@@ -53,7 +53,7 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
 
   void onClickTeacher() {
     localeManager.setStringValue(PreferencesKeys.USER_ROLE, 'teacher');
-    _goToMenu();
+    _goToCreateSchool();
   }
 
   void onClickStudent() {
@@ -63,5 +63,9 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
 
   void _goToMenu() {
     navigation.navigateToPageClear(path: NavigationConstants.MENU_VIEW);
+  }
+
+  void _goToCreateSchool() {
+    navigation.navigateToPage(path: NavigationConstants.CREATE_SCHOOL);
   }
 }

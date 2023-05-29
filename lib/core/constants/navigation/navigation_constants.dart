@@ -9,4 +9,5 @@ class NavigationConstants {
   static const SUBJECT_CONTENT_VIEW = '/contentView';
   static const WEB_VIEW = '/webView';
   static const EDIT_URL_VIEW = '/editUrlView';
+  static const CREATE_SCHOOL = '/createSchool';
 }
