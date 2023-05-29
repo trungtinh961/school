@@ -24,19 +24,19 @@ class SplashView extends StatelessWidget {
 
   Widget buildScaffoldBody(BuildContext context, SplashViewModel viewModel) {
     return Scaffold(
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.purple.shade300,
       body: SafeArea(
         child: Stack(
           children: [
-            buildCenterTextWelcome(context, viewModel),
-            buildAnimatedAlignIcon(viewModel, context),
+            buildTextWelcome(context, viewModel),
+            buildAnimatedButtons(viewModel, context),
           ],
         ),
       ),
     );
   }
 
-  Center buildCenterTextWelcome(
+  Center buildTextWelcome(
     BuildContext context,
     SplashViewModel viewModel,
   ) {
@@ -45,17 +45,28 @@ class SplashView extends StatelessWidget {
         builder: (_) {
           return AnimatedOpacity(
             duration: context.durationNormal,
-            opacity: 1,
+            opacity: viewModel.isFirstInit ? 0 : 1,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  LocaleKeys.splash_welcome.tr(),
-                  style: context.textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: context.colorScheme.primaryContainer,
+                SizedBox(
+                  width: 200,
+                  height: 50,
+                  child: TitleTextButton(
+                    onPressed: viewModel.onClickTeacher,
+                    text: "Giáo viên",
                   ),
-                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                SizedBox(
+                  width: 200,
+                  height: 50,
+                  child: TitleTextButton(
+                    onPressed: viewModel.onClickStudent,
+                    text: "Học sinh",
+                  ),
                 ),
               ],
             ),
@@ -65,33 +76,28 @@ class SplashView extends StatelessWidget {
     );
   }
 
-  Widget buildAnimatedAlignIcon(
+  Widget buildAnimatedButtons(
     SplashViewModel viewModel,
     BuildContext context,
   ) {
     return Observer(
       builder: (_) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 32),
-          child: AnimatedAlign(
-            alignment: Alignment.bottomCenter,
-            duration: context.durationLow,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TitleTextButton(
-                  onPressed: viewModel.onClickTeacher,
-                  text: "Giáo viên",
+        return AnimatedAlign(
+          alignment:
+              viewModel.isFirstInit ? Alignment.center : Alignment.topCenter,
+          duration: context.durationLow,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                LocaleKeys.splash_welcome.tr(),
+                style: context.textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: context.colorScheme.primaryContainer,
                 ),
-                const SizedBox(
-                  height: 12,
-                ),
-                TitleTextButton(
-                  onPressed: viewModel.onClickStudent,
-                  text: "Học sinh",
-                ),
-              ],
-            ),
+                textAlign: TextAlign.center,
+              ),
+            ],
           ),
         );
       },
