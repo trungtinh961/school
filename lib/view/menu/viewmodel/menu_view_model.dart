@@ -20,6 +20,7 @@ abstract class _MenuViewModel with Store, BaseViewModel {
 
   @observable
   List<SubjectModel> listSubject = [];
+  @observable
   List<SubjectModel> listFeedback = [];
 
   @override
@@ -31,9 +32,14 @@ abstract class _MenuViewModel with Store, BaseViewModel {
   }
 
   Future<void> _getListMenu() async {
-    final response = await _menuService.readItems();
-    listSubject = response.where((e) => e.type == MenuType.subject).toList();
-    listFeedback = response.where((e) => e.type == MenuType.feedback).toList();
+    final response = await _menuService
+        .getSchool(localeManager.getStringValue(PreferencesKeys.SCHOOL_ID));
+    listSubject =
+        response.subjects?.where((e) => e.type == MenuType.subject).toList() ??
+            [];
+    listFeedback =
+        response.subjects?.where((e) => e.type == MenuType.feedback).toList() ??
+            [];
   }
 
   void onSelectMenu(SubjectModel? item) {

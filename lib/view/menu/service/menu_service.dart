@@ -1,16 +1,19 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:smart_school/core/constants/app/app_constants.dart';
+import 'package:smart_school/view/create_school/model/school_model.dart';
 import '../model/subject_model.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-final CollectionReference _mainCollection = _firestore.collection('cb001');
+final CollectionReference _schoolCollection =
+    _firestore.collection(ApplicationConstants.SCHOOL_COLLECTION);
 
 class MenuServices {
   Future<void> addItem({
     required String? subjectId,
     required SubjectModel model,
   }) async {
-    DocumentReference documentReferencer = _mainCollection.doc(subjectId);
+    DocumentReference documentReferencer = _schoolCollection.doc(subjectId);
     Map<String, dynamic> data = model.toFirestore();
 
     await documentReferencer
@@ -23,7 +26,7 @@ class MenuServices {
     required String subjectId,
     required SubjectModel model,
   }) async {
-    DocumentReference documentReferencer = _mainCollection.doc(subjectId);
+    DocumentReference documentReferencer = _schoolCollection.doc(subjectId);
     Map<String, dynamic> data = model.toFirestore();
 
     await documentReferencer
@@ -32,21 +35,17 @@ class MenuServices {
         .catchError((e) => log(e));
   }
 
-  Future<List<SubjectModel>> readItems() async {
-    final querySnapshot = await _mainCollection.orderBy('type', descending: true).get();
-    List<SubjectModel> datas = querySnapshot.docs.map((e) {
-      final data = e.data() as Map<String, dynamic>;
-      data['id'] = e.id;
-      return SubjectModel.fromJson(data);
-    }).toList();
-    return datas;
+  Future<SchoolModel> getSchool(String schoolId) async {
+    final querySnapshot = await _schoolCollection.doc(schoolId).get();
+    final data = querySnapshot.data() as Map<String, dynamic>;
+    return SchoolModel.fromJson(data);
   }
 
   Future<void> deleteItem({
     required String subjectId,
   }) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc(subjectId).collection('items').doc(subjectId);
+        _schoolCollection.doc(subjectId).collection('items').doc(subjectId);
 
     await documentReferencer
         .delete()

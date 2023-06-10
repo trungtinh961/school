@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
+import 'package:smart_school/view/create_school/model/province_model.dart';
 import 'package:smart_school/view/create_school/service/create_school_service.dart';
 import 'package:architecture_widgets/src/button/title_text_button.dart';
 import '../../../core/base/view/base_widget.dart';
@@ -15,15 +17,7 @@ class CreateSchoolView extends StatefulWidget {
 class _CreateSchoolViewState extends State<CreateSchoolView> {
   final _textEditingController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  List<String> items = [
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-    "Item 6"
-  ];
-  String? selectedItem;
+  ProvinceModel? selectedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +52,15 @@ class _CreateSchoolViewState extends State<CreateSchoolView> {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 12),
-              _buildDropdown(),
+              _buildDropdown(viewModel),
               const SizedBox(height: 20),
               _buildTextField(viewModel),
               const SizedBox(height: 20),
               TitleTextButton(
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
-                    // viewModel.updateUrl(_textEditingController.text);
+                    viewModel.createSchool(
+                        _textEditingController.text, selectedItem);
                   }
                 },
                 text: "Tạo mới",
@@ -77,32 +72,35 @@ class _CreateSchoolViewState extends State<CreateSchoolView> {
     );
   }
 
-  Widget _buildDropdown() {
-    return Container(
-      width: MediaQuery.of(context).size.width - 32,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: ButtonTheme(
-        alignedDropdown: true,
-        child: DropdownButton(
-          isExpanded: true,
-          value: selectedItem,
-          onChanged: (value) {
-            setState(() {
-              selectedItem = value;
-            });
-          },
-          underline: Container(
-            height: 0,
+  Widget _buildDropdown(CreateSchoolViewModel viewModel) {
+    return Observer(
+      builder: (_) => Container(
+        width: MediaQuery.of(context).size.width - 32,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: ButtonTheme(
+          alignedDropdown: true,
+          child: DropdownButton<ProvinceModel>(
+            isExpanded: true,
+            value: selectedItem,
+            onChanged: (value) {
+              setState(() {
+                selectedItem = value;
+              });
+            },
+            underline: Container(
+              height: 0,
+            ),
+            items: viewModel.provinceList.map((province) {
+              return DropdownMenuItem(
+                value: province,
+                child: Text(province.name ?? ""),
+              );
+            }).toList(),
+            hint: const Text('Danh sách tỉnh...'),
           ),
-          items: items.map((item) {
-            return DropdownMenuItem(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
         ),
       ),
     );

@@ -25,10 +25,27 @@ mixin _$MenuViewModel on _MenuViewModel, Store {
     });
   }
 
+  late final _$listFeedbackAtom =
+      Atom(name: '_MenuViewModel.listFeedback', context: context);
+
+  @override
+  List<SubjectModel> get listFeedback {
+    _$listFeedbackAtom.reportRead();
+    return super.listFeedback;
+  }
+
+  @override
+  set listFeedback(List<SubjectModel> value) {
+    _$listFeedbackAtom.reportWrite(value, super.listFeedback, () {
+      super.listFeedback = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-listSubject: ${listSubject}
+listSubject: ${listSubject},
+listFeedback: ${listFeedback}
     ''';
   }
 }
