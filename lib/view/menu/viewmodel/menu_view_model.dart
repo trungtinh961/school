@@ -6,7 +6,6 @@ import 'package:smart_school/view/menu/model/subject_model.dart';
 import '../../../../core/base/model/base_view_model.dart';
 import '../../../../core/constants/navigation/navigation_constants.dart';
 import '../../../core/constants/enums/locale_keys_enum.dart';
-import '../../webview/webview_model.dart';
 import '../service/menu_service.dart';
 
 part 'menu_view_model.g.dart'; // This is the generated file.
@@ -50,22 +49,7 @@ abstract class _MenuViewModel with Store, BaseViewModel {
   }
 
   void onSelectMenu(SubjectModel? item) {
-    String userRole = localeManager.getStringValue(PreferencesKeys.USER_ROLE);
-    switch (userRole) {
-      case 'teacher':
-        navigation.navigateToPage(
-            path: NavigationConstants.EDIT_URL_VIEW, data: item);
-        break;
-      case 'student':
-        navigation.navigateToPage(
-            path: NavigationConstants.WEB_VIEW,
-            data: WebViewModel(
-              item?.name ?? '',
-              url: item?.url,
-            ));
-        break;
-      default:
-    }
+    navigation.navigateToPage(path: NavigationConstants.WEB_VIEW, data: item);
   }
 
   void onLogout() {

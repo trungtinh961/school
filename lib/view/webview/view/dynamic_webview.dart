@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../webview_model.dart';
+import '../../../core/base/view/base_widget.dart';
+import '../../menu/model/subject_model.dart';
+import '../viewmodel/webview_view_model.dart';
 
 class DynamicWebView extends StatefulWidget {
   const DynamicWebView({
@@ -10,7 +12,7 @@ class DynamicWebView extends StatefulWidget {
     required this.model,
   }) : super(key: key);
 
-  final WebViewModel model;
+  final SubjectModel model;
 
   @override
   State<DynamicWebView> createState() => _DynamicWebViewState();
@@ -53,21 +55,41 @@ class _DynamicWebViewState extends State<DynamicWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.model.title,
-          style: context.textTheme.headlineSmall?.copyWith(color: Colors.white),
+    return BaseView<WebviewViewModel>(
+      viewModel: WebviewViewModel(widget.model),
+      onModelReady: (model) {
+        model.setContext(context);
+        model.init();
+      },
+      onPageBuilder: (BuildContext context, WebviewViewModel viewModel) =>
+          Container(
+        color: context.colorScheme.background,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              widget.model.name ?? '',
+              style: context.textTheme.headlineSmall
+                  ?.copyWith(color: Colors.white),
+            ),
+            actions: [
+              viewModel.canEdit()
+                  ? IconButton(
+                      onPressed: viewModel.onEdit,
+                      icon: const Icon(Icons.edit),
+                    )
+                  : const SizedBox.shrink(),
+            ],
+          ),
+          body: (widget.model.url ?? '').isEmpty
+              ? Center(
+                  child: Text(
+                    'Chưa có dữ liệu',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                )
+              : WebViewWidget(controller: _controller),
         ),
       ),
-      body: (widget.model.url ?? '').isEmpty
-          ? Center(
-              child: Text(
-                'Chưa có dữ liệu',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            )
-          : WebViewWidget(controller: _controller),
     );
   }
 }

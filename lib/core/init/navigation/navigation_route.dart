@@ -11,7 +11,6 @@ import '../../../view/menu/view/menu_view.dart';
 import '../../../view/splash/view/splash_view.dart';
 import '../../../view/subject_detail/view/subject_content_view.dart';
 import '../../../view/webview/view/dynamic_webview.dart';
-import '../../../view/webview/webview_model.dart';
 import '../../constants/navigation/navigation_constants.dart';
 
 class NavigationRoute {
@@ -58,9 +57,9 @@ class NavigationRoute {
         throw NavigateException<SubjectModel>(args.arguments);
 
       case NavigationConstants.WEB_VIEW:
-        if (args.arguments is WebViewModel) {
+        if (args.arguments is SubjectModel) {
           return normalNavigate(
-              DynamicWebView(model: args.arguments as WebViewModel),
+              DynamicWebView(model: args.arguments as SubjectModel),
               NavigationConstants.WEB_VIEW);
         }
         throw NavigateException<SubjectModel>(args.arguments);
