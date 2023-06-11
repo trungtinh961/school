@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:smart_school/view/create_school/model/school_model.dart';
 import 'package:smart_school/view/menu/model/subject_model.dart';
 
 import '../../../../core/base/model/base_view_model.dart';
@@ -14,9 +15,10 @@ part 'menu_view_model.g.dart'; // This is the generated file.
 class MenuViewModel = _MenuViewModel with _$MenuViewModel;
 
 abstract class _MenuViewModel with Store, BaseViewModel {
-  _MenuViewModel(this._menuService);
+  _MenuViewModel(this._menuService, this._schoolModel);
 
   final MenuServices _menuService;
+  final SchoolModel? _schoolModel;
 
   @observable
   List<SubjectModel> listSubject = [];
@@ -32,14 +34,19 @@ abstract class _MenuViewModel with Store, BaseViewModel {
   }
 
   Future<void> _getListMenu() async {
-    final response = await _menuService
-        .getSchool(localeManager.getStringValue(PreferencesKeys.SCHOOL_ID));
-    listSubject =
-        response.subjects?.where((e) => e.type == MenuType.subject).toList() ??
-            [];
-    listFeedback =
-        response.subjects?.where((e) => e.type == MenuType.feedback).toList() ??
-            [];
+    if (_schoolModel == null) {
+      return;
+    }
+    _schoolModel!.subjects
+        ?.sort((a, b) => (a.name ?? '').compareTo(b.name ?? ''));
+    listSubject = _schoolModel!.subjects
+            ?.where((e) => e.type == MenuType.subject)
+            .toList() ??
+        [];
+    listFeedback = _schoolModel!.subjects
+            ?.where((e) => e.type == MenuType.feedback)
+            .toList() ??
+        [];
   }
 
   void onSelectMenu(SubjectModel? item) {
@@ -59,5 +66,9 @@ abstract class _MenuViewModel with Store, BaseViewModel {
         break;
       default:
     }
+  }
+
+  void onLogout() {
+    navigation.navigateToPageClear(path: NavigationConstants.DEFAULT);
   }
 }

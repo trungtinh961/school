@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:smart_school/core/constants/enums/locale_keys_enum.dart';
@@ -32,10 +30,12 @@ abstract class _CreateSchoolViewModel with Store, BaseViewModel {
     _createSchoolService.getListSchool().then((value) {});
   }
 
-  void createSchool(String name, ProvinceModel? province) {
-    _createSchoolService.createSchool(name, province).then((value) {
-      localeManager.setStringValue(PreferencesKeys.SCHOOL_ID, value.id);
-      navigation.navigateToPageClear(path: NavigationConstants.MENU_VIEW);
-    }).catchError((e) => log(e));
+  Future<void> createSchool(String name, ProvinceModel? province) async {
+    final school = await _createSchoolService.createSchool(name, province);
+    localeManager.setStringValue(PreferencesKeys.SCHOOL_ID, school.id ?? '');
+    navigation.navigateToPageClear(
+      path: NavigationConstants.MENU_VIEW,
+      data: school,
+    );
   }
 }

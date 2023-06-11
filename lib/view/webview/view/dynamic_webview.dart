@@ -61,7 +61,12 @@ class _DynamicWebViewState extends State<DynamicWebView> {
         ),
       ),
       body: (widget.model.url ?? '').isEmpty
-          ? const SizedBox.shrink()
+          ? Center(
+              child: Text(
+                'Chưa có dữ liệu',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            )
           : WebViewWidget(controller: _controller),
     );
   }

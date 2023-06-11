@@ -7,12 +7,14 @@ part 'school_model.g.dart';
 
 @JsonSerializable()
 class SchoolModel {
+  final String? id;
   final String? name;
   final String? userEmail;
   final ProvinceModel? province;
   final List<SubjectModel>? subjects;
 
   SchoolModel({
+    this.id,
     this.userEmail,
     this.name,
     this.province,

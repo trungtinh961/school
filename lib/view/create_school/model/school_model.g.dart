@@ -7,6 +7,7 @@ part of 'school_model.dart';
 // **************************************************************************
 
 SchoolModel _$SchoolModelFromJson(Map<String, dynamic> json) => SchoolModel(
+      id: json['id'] as String?,
       userEmail: json['userEmail'] as String?,
       name: json['name'] as String?,
       province: json['province'] == null
@@ -19,6 +20,7 @@ SchoolModel _$SchoolModelFromJson(Map<String, dynamic> json) => SchoolModel(
 
 Map<String, dynamic> _$SchoolModelToJson(SchoolModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'userEmail': instance.userEmail,
       'province': instance.province,

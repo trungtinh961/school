@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:architecture_widgets/src/card/not_found_navigation_widget.dart';
+import 'package:smart_school/view/create_school/model/school_model.dart';
 import 'package:smart_school/view/edit_url/views/edit_url_view.dart';
 import 'package:smart_school/view/menu/model/subject_model.dart';
+import 'package:smart_school/view/select_school/view/select_school_view.dart';
 import '../../../product/exception/navigate_model_not_found.dart';
 import '../../../view/create_school/view/create_school_view.dart';
 import '../../../view/menu/view/menu_view.dart';
@@ -24,10 +25,21 @@ class NavigationRoute {
         return normalNavigate(const SplashView(), NavigationConstants.DEFAULT);
 
       case NavigationConstants.MENU_VIEW:
-        return normalNavigate(const MenuView(), NavigationConstants.MENU_VIEW);
-      
+        if (args.arguments is SchoolModel) {
+          return normalNavigate(
+            MenuView(schoolItem: args.arguments as SchoolModel),
+            NavigationConstants.MENU_VIEW,
+          );
+        }
+        throw NavigateException<SubjectModel>(args.arguments);
+
       case NavigationConstants.CREATE_SCHOOL:
-        return normalNavigate(const CreateSchoolView(), NavigationConstants.CREATE_SCHOOL);
+        return normalNavigate(
+            const CreateSchoolView(), NavigationConstants.CREATE_SCHOOL);
+
+      case NavigationConstants.SELECT_SCHOOL:
+        return normalNavigate(
+            const SelectSchoolView(), NavigationConstants.SELECT_SCHOOL);
 
       case NavigationConstants.EDIT_URL_VIEW:
         if (args.arguments is SubjectModel) {
@@ -44,7 +56,7 @@ class NavigationRoute {
               NavigationConstants.SUBJECT_CONTENT_VIEW);
         }
         throw NavigateException<SubjectModel>(args.arguments);
-        
+
       case NavigationConstants.WEB_VIEW:
         if (args.arguments is WebViewModel) {
           return normalNavigate(

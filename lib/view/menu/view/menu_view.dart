@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:kartal/kartal.dart';
+import 'package:smart_school/view/create_school/model/school_model.dart';
 import 'package:smart_school/view/menu/model/subject_model.dart';
 import 'package:smart_school/view/menu/service/menu_service.dart';
 
@@ -9,8 +10,12 @@ import '../viewmodel/menu_view_model.dart';
 import 'menu_item_view.dart';
 
 class MenuView extends StatefulWidget {
-  const MenuView({Key? key}) : super(key: key);
+  const MenuView({
+    Key? key,
+    required this.schoolItem,
+  }) : super(key: key);
 
+  final SchoolModel? schoolItem;
   @override
   State<MenuView> createState() => _MenuViewState();
 }
@@ -19,7 +24,7 @@ class _MenuViewState extends State<MenuView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<MenuViewModel>(
-      viewModel: MenuViewModel(MenuServices()),
+      viewModel: MenuViewModel(MenuServices(), widget.schoolItem),
       onModelReady: (model) {
         model.setContext(context);
         model.init();
@@ -32,7 +37,7 @@ class _MenuViewState extends State<MenuView> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: _buildAppBar(context),
+        appBar: _buildAppBar(viewModel, context),
         body: TabBarView(
           children: [
             _buildMenuListView(viewModel, MenuType.subject),
@@ -43,11 +48,17 @@ class _MenuViewState extends State<MenuView> {
     );
   }
 
-  AppBar _buildAppBar(BuildContext context) {
+  AppBar _buildAppBar(MenuViewModel viewModel, BuildContext context) {
     return AppBar(
       leading: const SizedBox.shrink(),
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.logout),
+          onPressed: viewModel.onLogout,
+        ),
+      ],
       title: Text(
-        "THPT ..........",
+        widget.schoolItem?.name ?? '',
         style: context.textTheme.headlineSmall?.copyWith(color: Colors.white),
       ),
       bottom: const TabBar(

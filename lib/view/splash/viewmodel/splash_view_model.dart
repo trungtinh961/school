@@ -1,14 +1,11 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mobx/mobx.dart';
-import 'package:smart_school/view/create_school/model/province_model.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constants/enums/locale_keys_enum.dart';
 import '../../../core/constants/navigation/navigation_constants.dart';
-import '../../create_school/service/create_school_service.dart';
 import '../service/splash_service.dart';
 import 'device_and_cahe.dart';
 
@@ -61,7 +58,8 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
 
   void onClickStudent() {
     localeManager.setStringValue(PreferencesKeys.USER_ROLE, 'student');
-    _goToMenu();
+    _goToSelectSchool();
+    // _goToMenu();
   }
 
   void _goToMenu() {
@@ -70,5 +68,9 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
 
   void _goToCreateSchool() {
     navigation.navigateToPage(path: NavigationConstants.CREATE_SCHOOL);
+  }
+
+  void _goToSelectSchool() {
+    navigation.navigateToPage(path: NavigationConstants.SELECT_SCHOOL);
   }
 }

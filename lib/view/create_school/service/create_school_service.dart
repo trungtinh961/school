@@ -32,21 +32,26 @@ class CreateSchoolService {
     return datas;
   }
 
-  Future<DocumentReference<Object?>> createSchool(
-      String name, ProvinceModel? province) async {
+  Future<SchoolModel> createSchool(String name, ProvinceModel? province) async {
     final schoolModel = SchoolModel(
       name: name,
       userEmail: '',
       province: province,
       subjects: ApplicationConstants.DEFAULT_SUBJECT,
     );
-    return await _schoolCollection.add(schoolModel.toFirestore());
+    final docRef = await _schoolCollection.add(schoolModel.toFirestore());
+    final docSnapshot = await docRef.get();
+    final data = docSnapshot.data() as Map<String, dynamic>;
+    data['id'] = docSnapshot.id;
+    return SchoolModel.fromJson(data);
   }
 
   Future<List<SchoolModel>> getListSchool() async {
-    final querySnapshot = await _schoolCollection.orderBy('name').get();
+    final querySnapshot =
+        await _schoolCollection.orderBy('name', descending: true).get();
     List<SchoolModel> datas = querySnapshot.docs.map((e) {
       final data = e.data() as Map<String, dynamic>;
+      data['id'] = e.id;
       return SchoolModel.fromJson(data);
     }).toList();
     return datas;
