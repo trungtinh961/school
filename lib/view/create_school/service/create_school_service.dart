@@ -57,7 +57,7 @@ class CreateSchoolService {
     return datas;
   }
 
-  Future<SchoolModel> getSchool(String email) async {
+  Future<SchoolModel> getSchoolByEmail(String email) async {
     final querySnapshot =
         await _schoolCollection.where("email", isEqualTo: email).get();
     List<SchoolModel> datas = querySnapshot.docs.map((e) {
@@ -65,5 +65,11 @@ class CreateSchoolService {
       return SchoolModel.fromJson(data);
     }).toList();
     return datas.first;
+  }
+
+  Future<SchoolModel> getSchoolById(String id) async {
+    final querySnapshot = await _schoolCollection.doc(id).get();
+    final data = querySnapshot.data() as Map<String, dynamic>;
+    return SchoolModel.fromJson(data);
   }
 }

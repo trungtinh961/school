@@ -54,6 +54,7 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
   void onClickTeacher() {
     localeManager.setStringValue(PreferencesKeys.USER_ROLE, 'teacher');
     _goToCreateSchool();
+    //  _goToSelectSchool();
   }
 
   void onClickStudent() {

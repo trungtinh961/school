@@ -7,7 +7,7 @@ part of 'subject_model.dart';
 // **************************************************************************
 
 SubjectModel _$SubjectModelFromJson(Map<String, dynamic> json) => SubjectModel(
-      id: json['id'] as String?,
+      id: json['id'] as int?,
       name: json['name'] as String?,
       url: json['url'] as String?,
       type: $enumDecodeNullable(_$MenuTypeEnumMap, json['type']),

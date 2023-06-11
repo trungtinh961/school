@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../core/base/model/base_view_model.dart';
+import '../../../core/constants/enums/locale_keys_enum.dart';
 import '../../menu/model/subject_model.dart';
 import '../service/edit_url_service.dart';
 
@@ -25,7 +26,8 @@ abstract class _EditUrlViewModel with Store, BaseViewModel {
   Future<void> updateUrl(String url) async {
     if (model == null) return;
     model!.url = url;
-    await _editService.updateUrl(model: model!);
+    final schoolId = localeManager.getStringValue(PreferencesKeys.SCHOOL_ID);
+    await _editService.updateUrl(schoolId: schoolId, model: model!);
     navigation.pop();
   }
 

@@ -7,7 +7,7 @@ part 'subject_model.g.dart';
 
 @JsonSerializable()
 class SubjectModel {
-  final String? id;
+  final int? id;
   final String? name;
   String? url;
   final MenuType? type;
