@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mobx/mobx.dart';
@@ -53,8 +52,9 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
 
   void onClickTeacher() {
     localeManager.setStringValue(PreferencesKeys.USER_ROLE, 'teacher');
-    _goToCreateSchool();
+    // _goToCreateSchool();
     //  _goToSelectSchool();
+    _goToSignin();
   }
 
   void onClickStudent() {
@@ -73,5 +73,9 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
 
   void _goToSelectSchool() {
     navigation.navigateToPage(path: NavigationConstants.SELECT_SCHOOL);
+  }
+
+  void _goToSignin() {
+    navigation.navigateToPage(path: NavigationConstants.SIGN_IN);
   }
 }

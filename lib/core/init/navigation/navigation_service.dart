@@ -23,6 +23,12 @@ class NavigationService implements INavigationService {
   }
 
   @override
+  Future<void> navigateToPageReplace({String? path, Object? data}) async {
+    await navigatorKey.currentState!
+        .pushReplacementNamed(path!, arguments: data);
+  }
+
+  @override
   Future<void> pop() async {
     navigatorKey.currentState!.pop();
   }

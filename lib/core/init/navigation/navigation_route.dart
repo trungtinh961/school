@@ -1,3 +1,4 @@
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 // ignore: implementation_imports
 import 'package:architecture_widgets/src/card/not_found_navigation_widget.dart';
@@ -5,6 +6,7 @@ import 'package:smart_school/view/create_school/model/school_model.dart';
 import 'package:smart_school/view/edit_url/views/edit_url_view.dart';
 import 'package:smart_school/view/menu/model/subject_model.dart';
 import 'package:smart_school/view/select_school/view/select_school_view.dart';
+import 'package:smart_school/view/signin_view/view/signin_view.dart';
 import '../../../product/exception/navigate_model_not_found.dart';
 import '../../../view/create_school/view/create_school_view.dart';
 import '../../../view/menu/view/menu_view.dart';
@@ -39,6 +41,17 @@ class NavigationRoute {
       case NavigationConstants.SELECT_SCHOOL:
         return normalNavigate(
             const SelectSchoolView(), NavigationConstants.SELECT_SCHOOL);
+
+      case NavigationConstants.SIGN_IN:
+        return normalNavigate(const SigninView(), NavigationConstants.SIGN_IN);
+
+      case NavigationConstants.FORGOT_PASSWORD:
+        if (args.arguments is String?) {
+          return normalNavigate(
+              ForgotPasswordScreen(email: args.arguments as String?),
+              NavigationConstants.FORGOT_PASSWORD);
+        }
+        throw NavigateException<SubjectModel>(args.arguments);
 
       case NavigationConstants.EDIT_URL_VIEW:
         if (args.arguments is SubjectModel) {

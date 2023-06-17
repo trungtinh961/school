@@ -11,4 +11,6 @@ class NavigationConstants {
   static const EDIT_URL_VIEW = '/editUrlView';
   static const CREATE_SCHOOL = '/createSchool';
   static const SELECT_SCHOOL = '/selectSchool';
+  static const SIGN_IN = '/login';
+  static const FORGOT_PASSWORD = '/forgot-password';
 }
