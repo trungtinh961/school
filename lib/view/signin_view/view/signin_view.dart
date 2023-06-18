@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
 import '../../../core/base/view/base_widget.dart';
+import '../../create_school/service/create_school_service.dart';
 import '../viewmodel/signin_view_model.dart';
 
 class SigninView extends StatefulWidget {
@@ -16,7 +17,7 @@ class _SigninViewState extends State<SigninView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<SignInViewModel>(
-      viewModel: SignInViewModel(),
+      viewModel: SignInViewModel(CreateSchoolService()),
       onModelReady: (model) {
         model.setContext(context);
         model.init();
@@ -51,16 +52,13 @@ class _SigninViewState extends State<SigninView> {
                   if (user == null) {
                     return;
                   }
-                  if (!user.emailVerified && (state is UserCreated)) {
-                    user.sendEmailVerification();
-                  }
                   if (state is UserCreated) {
                     if (user.displayName == null && user.email != null) {
                       var defaultDisplayName = user.email!.split('@')[0];
                       user.updateDisplayName(defaultDisplayName);
                     }
                   }
-                  viewModel.goToSelectSchool();
+                  viewModel.onSignInSuccess(user.email);
                 }
               }),
             ),

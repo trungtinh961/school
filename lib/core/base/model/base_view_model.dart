@@ -19,4 +19,20 @@ abstract class BaseViewModel {
 
   void setContext(BuildContext context);
   void init();
+
+  void showErrorSnackBar(String message) {
+    ScaffoldMessenger.of(viewModelContext).showSnackBar(snackBarError(message));
+  }
+
+  SnackBar snackBarError(String message) {
+    return SnackBar(
+      backgroundColor: Colors.red,
+      content: Text(
+        message,
+        textAlign: TextAlign.center,
+      ),
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.symmetric(vertical: 20),
+    );
+  }
 }

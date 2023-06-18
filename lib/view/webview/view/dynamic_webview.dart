@@ -37,12 +37,12 @@ class _DynamicWebViewState extends State<DynamicWebView> {
           onPageFinished: (String url) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://drive.google.com/') ||
-                request.url.startsWith('https://forms.gle/') ||
-                request.url.startsWith('https://docs.google.com/')) {
-              return NavigationDecision.navigate;
-            }
-            return NavigationDecision.prevent;
+            // if (request.url.startsWith('https://drive.google.com/') ||
+            //     request.url.startsWith('https://forms.gle/') ||
+            //     request.url.startsWith('https://docs.google.com/')) {
+            //   return NavigationDecision.navigate;
+            // }
+            return NavigationDecision.navigate;
           },
         ),
       )

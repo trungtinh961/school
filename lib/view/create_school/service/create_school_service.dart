@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_school/view/create_school/model/province_model.dart';
 import '../../../core/constants/app/app_constants.dart';
 import '../model/school_model.dart';
@@ -35,7 +36,7 @@ class CreateSchoolService {
   Future<SchoolModel> createSchool(String name, ProvinceModel? province) async {
     final schoolModel = SchoolModel(
       name: name,
-      userEmail: '',
+      userEmail: FirebaseAuth.instance.currentUser?.email ?? '',
       province: province,
       subjects: ApplicationConstants.DEFAULT_SUBJECT,
     );
@@ -57,14 +58,19 @@ class CreateSchoolService {
     return datas;
   }
 
-  Future<SchoolModel> getSchoolByEmail(String email) async {
+  Future<SchoolModel?> getSchoolByEmail(String email) async {
     final querySnapshot =
-        await _schoolCollection.where("email", isEqualTo: email).get();
+        await _schoolCollection.where("userEmail", isEqualTo: email).get();
     List<SchoolModel> datas = querySnapshot.docs.map((e) {
       final data = e.data() as Map<String, dynamic>;
       return SchoolModel.fromJson(data);
     }).toList();
-    return datas.first;
+    try {
+      SchoolModel school = datas.first;
+      return school;
+    } catch (e) {
+      return null;
+    }
   }
 
   Future<SchoolModel> getSchoolById(String id) async {

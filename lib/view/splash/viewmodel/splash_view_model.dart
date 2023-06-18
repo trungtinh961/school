@@ -61,10 +61,6 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
     _goToSelectSchool();
   }
 
-  void _goToCreateSchool() {
-    navigation.navigateToPage(path: NavigationConstants.CREATE_SCHOOL);
-  }
-
   void _goToSelectSchool() {
     navigation.navigateToPage(path: NavigationConstants.SELECT_SCHOOL);
   }

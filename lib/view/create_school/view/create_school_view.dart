@@ -56,20 +56,24 @@ class _CreateSchoolViewState extends State<CreateSchoolView> {
               const SizedBox(height: 20),
               _buildTextField(viewModel),
               const SizedBox(height: 20),
-              TitleTextButton(
-                onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    viewModel.createSchool(
-                        _textEditingController.text, selectedItem);
-                  }
-                },
-                text: "Tạo mới",
-              ),
+              _buildCreateButton(viewModel),
             ],
           ),
         ),
       ),
     );
+  }
+
+  TitleTextButton _buildCreateButton(CreateSchoolViewModel viewModel) {
+    return TitleTextButton(
+              onPressed: () {
+                if (_formKey.currentState?.validate() ?? false) {
+                  viewModel.createSchool(
+                      _textEditingController.text, selectedItem);
+                }
+              },
+              text: "Tạo mới",
+            );
   }
 
   Widget _buildDropdown(CreateSchoolViewModel viewModel) {
