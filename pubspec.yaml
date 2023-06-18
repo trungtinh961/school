@@ -47,6 +47,9 @@ dependencies:
 
   # language
   easy_localization: ^3.0.1
+  flutter_localizations:
+    sdk: flutter
+  firebase_ui_localizations: ^1.2.0
 
   # firebase
   firebase_core: ^2.12.0
