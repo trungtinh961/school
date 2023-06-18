@@ -63,6 +63,7 @@ class CreateSchoolService {
         await _schoolCollection.where("userEmail", isEqualTo: email).get();
     List<SchoolModel> datas = querySnapshot.docs.map((e) {
       final data = e.data() as Map<String, dynamic>;
+      data['id'] = e.id;
       return SchoolModel.fromJson(data);
     }).toList();
     try {
