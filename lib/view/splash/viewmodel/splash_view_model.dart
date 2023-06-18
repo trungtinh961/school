@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mobx/mobx.dart';
@@ -27,6 +28,7 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       controlAppState();
     });
+    FirebaseAuth.instance.signOut();
   }
 
   Future<void> controlAppState() async {
@@ -51,20 +53,12 @@ abstract class _SplashViewModelBase with Store, BaseViewModel, DeviceAndCache {
   }
 
   void onClickTeacher() {
-    localeManager.setStringValue(PreferencesKeys.USER_ROLE, 'teacher');
-    // _goToCreateSchool();
-    //  _goToSelectSchool();
     _goToSignin();
   }
 
   void onClickStudent() {
     localeManager.setStringValue(PreferencesKeys.USER_ROLE, 'student');
     _goToSelectSchool();
-    // _goToMenu();
-  }
-
-  void _goToMenu() {
-    navigation.navigateToPageClear(path: NavigationConstants.MENU_VIEW);
   }
 
   void _goToCreateSchool() {

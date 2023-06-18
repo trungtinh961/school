@@ -32,35 +32,43 @@ class _SigninViewState extends State<SigninView> {
   }
 
   Widget _buildSignInView(SignInViewModel viewModel) {
-    return SignInScreen(
-      showAuthActionSwitch: false,
-      actions: [
-        ForgotPasswordAction(
-          ((context, email) {
-            viewModel.goToForgotPassword(email);
-          }),
-        ),
-        AuthStateChangeAction(
-          ((context, state) {
-            if (state is UserCreated || state is SignedIn) {
-              var user = (state is SignedIn)
-                  ? state.user
-                  : (state as UserCreated).credential.user;
-              if (user == null) {
-                return;
-              }
-              if (!user.emailVerified && (state is UserCreated)) {
-                user.sendEmailVerification();
-              }
-              if (state is UserCreated) {
-                if (user.displayName == null && user.email != null) {
-                  var defaultDisplayName = user.email!.split('@')[0];
-                  user.updateDisplayName(defaultDisplayName);
+    return Stack(
+      children: [
+        SignInScreen(
+          showAuthActionSwitch: false,
+          actions: [
+            ForgotPasswordAction(
+              ((context, email) {
+                viewModel.goToForgotPassword(email);
+              }),
+            ),
+            AuthStateChangeAction(
+              ((context, state) {
+                if (state is UserCreated || state is SignedIn) {
+                  var user = (state is SignedIn)
+                      ? state.user
+                      : (state as UserCreated).credential.user;
+                  if (user == null) {
+                    return;
+                  }
+                  if (!user.emailVerified && (state is UserCreated)) {
+                    user.sendEmailVerification();
+                  }
+                  if (state is UserCreated) {
+                    if (user.displayName == null && user.email != null) {
+                      var defaultDisplayName = user.email!.split('@')[0];
+                      user.updateDisplayName(defaultDisplayName);
+                    }
+                  }
+                  viewModel.goToSelectSchool();
                 }
-              }
-              viewModel.goToSelectSchool();
-            }
-          }),
+              }),
+            ),
+          ],
+        ),
+        const Positioned(
+          top: 75,
+          child: BackButton(),
         ),
       ],
     );
