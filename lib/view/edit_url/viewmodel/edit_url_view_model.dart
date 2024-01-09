@@ -34,7 +34,7 @@ abstract class _EditUrlViewModel with Store, BaseViewModel {
   // check if the url is valid
   bool isValidURL(String url) {
     RegExp urlRegex = RegExp(
-      r"^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$",
+      r"^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9!@:%_\+.~#?&\/\/=]*)$",
       multiLine: true,
     );
     bool result = urlRegex.hasMatch(url);

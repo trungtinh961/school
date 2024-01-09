@@ -24,7 +24,7 @@ class SplashView extends StatelessWidget {
 
   Widget buildScaffoldBody(BuildContext context, SplashViewModel viewModel) {
     return Scaffold(
-      backgroundColor: Colors.purple.shade300,
+      backgroundColor: Colors.indigo.shade300,
       body: SafeArea(
         child: Stack(
           children: [
@@ -50,22 +50,28 @@ class SplashView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: 200,
-                  height: 50,
+                  width: 230,
+                  height: 70,
                   child: TitleTextButton(
-                    onPressed: viewModel.onClickTeacher,
                     text: "Giáo viên",
+                    onPressed: viewModel.onClickTeacher,
+                    style: context.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
                 SizedBox(
-                  width: 200,
-                  height: 50,
+                  width: 230,
+                  height: 70,
                   child: TitleTextButton(
-                    onPressed: viewModel.onClickStudent,
                     text: "Học sinh",
+                    onPressed: viewModel.onClickStudent,
+                    style: context.textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],
@@ -89,6 +95,9 @@ class SplashView extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              const SizedBox(
+                height: 40,
+              ),
               Text(
                 LocaleKeys.splash_welcome.tr(),
                 style: context.textTheme.headlineMedium?.copyWith(

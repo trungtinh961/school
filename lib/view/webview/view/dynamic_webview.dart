@@ -44,7 +44,7 @@ class _DynamicWebViewState extends State<DynamicWebView> {
                     .startsWith('https://moeteduvn-my.sharepoint.com/')) {
               return NavigationDecision.navigate;
             }
-            return NavigationDecision.prevent;
+            return NavigationDecision.navigate;
           },
         ),
       )

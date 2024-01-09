@@ -75,7 +75,7 @@ dependencies:
   shimmer: ^2.0.0-nullsafety.0
 
   architecture_theme:
-    git:  https://github.com/VB10/architecture_theme.git
+    git: https://github.com/trungtinh961/architecture_theme.git
   architecture_widgets:
     path: module/architecture_widgets
 
