@@ -38,8 +38,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "642ea0031325d1d5fa7d1ce2c328b35892639a52"
-      url: "https://github.com/VB10/architecture_theme.git"
+      resolved-ref: "271e50764855a81ea132c74647f1f50baa65f34e"
+      url: "https://github.com/trungtinh961/architecture_theme.git"
     source: git
     version: "0.0.1"
   architecture_widgets:

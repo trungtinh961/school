@@ -50,6 +50,7 @@ class _MenuViewState extends State<MenuView> {
 
   AppBar _buildAppBar(MenuViewModel viewModel, BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.indigo.shade300,
       leading: const SizedBox.shrink(),
       actions: <Widget>[
         IconButton(
@@ -63,6 +64,8 @@ class _MenuViewState extends State<MenuView> {
       ),
       bottom: const TabBar(
         indicatorColor: Colors.white,
+        labelColor: Colors.white54,
+        unselectedLabelColor: Colors.white,
         tabs: [
           Tab(text: 'Môn học'),
           Tab(text: 'Góp ý'),
