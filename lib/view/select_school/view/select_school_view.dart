@@ -33,6 +33,7 @@ class SelectSchoolView extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.blue,
       title: Text(
         "Chọn trường",
         style: Theme.of(context)

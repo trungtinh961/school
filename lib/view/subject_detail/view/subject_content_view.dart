@@ -39,6 +39,7 @@ class SubjectContentView extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.blue,
       title: Text(
         menuItem?.name ?? "",
         style: Theme.of(context)

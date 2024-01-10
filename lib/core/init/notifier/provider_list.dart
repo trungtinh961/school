@@ -14,9 +14,9 @@ class ApplicationProvider {
 
   List<SingleChildWidget> singleItems = [];
   List<SingleChildWidget> dependItems = [
-    ChangeNotifierProvider(
-      create: (context) => ThemeNotifier(),
-    ),
+    // ChangeNotifierProvider(
+    //   create: (context) => ThemeNotifier(),
+    // ),
     Provider.value(value: NavigationService.instance)
   ];
   List<SingleChildWidget> uiChangesItems = [];

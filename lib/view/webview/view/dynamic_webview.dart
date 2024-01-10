@@ -68,6 +68,7 @@ class _DynamicWebViewState extends State<DynamicWebView> {
         color: context.colorScheme.background,
         child: Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.blue,
             title: Text(
               widget.model.name ?? '',
               style: context.textTheme.headlineSmall

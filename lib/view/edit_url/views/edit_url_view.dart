@@ -78,6 +78,7 @@ class _EditUrlViewState extends State<EditUrlView> {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.blue,
       title: Text(
         "Cập nhật URL",
         style: context.textTheme.headlineSmall?.copyWith(color: Colors.white),

@@ -112,6 +112,7 @@ class _CreateSchoolViewState extends State<CreateSchoolView> {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.blue,
       title: Text(
         "Tạo trường mới",
         style: context.textTheme.headlineSmall?.copyWith(color: Colors.white),

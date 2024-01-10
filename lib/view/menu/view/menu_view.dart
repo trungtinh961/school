@@ -50,7 +50,7 @@ class _MenuViewState extends State<MenuView> {
 
   AppBar _buildAppBar(MenuViewModel viewModel, BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.indigo.shade300,
+      backgroundColor: Colors.blue,
       leading: const SizedBox.shrink(),
       actions: <Widget>[
         IconButton(
